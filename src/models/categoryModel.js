@@ -25,7 +25,7 @@ export const getCategoryById = async (id) => {
     const request = new sql.Request();
     const result = await request
       .input("id", sql.NVarChar, id)
-      .query("select * from Category where id=@id");
+      .query("select * from Category where categoryId=@id");
     return result.recordset[0];
   } catch (err) {
     throw err;
@@ -42,7 +42,7 @@ export const updateCategoryModel = async (id, name) => {
     const result = await request
       .input("name", sql.NVarChar, name)
       .input("id", sql.NVarChar, id)
-      .query("update Category set name=@name where id=@id");
+      .query("update Category set name=@name where categoryId=@id");
     if (result.rowsAffected[0] == 0) {
       throw new Error("Update failed. 0 rows affected");
     }

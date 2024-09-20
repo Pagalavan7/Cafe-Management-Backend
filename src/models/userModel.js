@@ -27,7 +27,14 @@ export const insertUser = async (
       .input("status", sql.VarChar, status)
       .input("role", sql.VarChar, role)
       .query(
-        `insert into [User] values(@name,@contactNumber,@email,@password,@status,@role)`
+        `insert into  [dbo].[User]
+           ([name]
+           ,[phone]
+           ,[email]
+           ,[password]
+           ,[status]
+           ,[role])
+        values(@name,@contactNumber,@email,@password,@status,@role)`
       );
   } catch (err) {
     throw err;

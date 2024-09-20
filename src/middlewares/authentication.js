@@ -8,6 +8,7 @@ export const authenticateToken = (req, res, next) => {
     if (authHeader && authHeader.startsWith("Bearer ")) {
       const token = authHeader.split(" ")[1];
       const user = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(user);
       req.user = user;
       next();
     } else {

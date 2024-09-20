@@ -67,13 +67,13 @@ export const loginUser = async (email, password) => {
     console.log(user);
     if (!user) {
       throw new Error("User not found. Register your credentials!");
-    } else if (!(await validatePassword(password, user.Password))) {
+    } else if (!(await validatePassword(password, user.password))) {
       throw new Error("Incorrect Password! Try again with correct password");
     } else {
       const token = generateToken({
-        name: user.Name,
-        email: user.Email,
-        role: user.Role,
+        name: user.name,
+        email: user.email,
+        role: user.role,
       });
       return token;
     }

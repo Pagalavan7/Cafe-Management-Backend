@@ -10,12 +10,19 @@ export const insertProduct = async (
     const request = new sql.Request();
     await request
       .input("name", sql.NVarChar, name)
-      .input("categoryId", sql.NVarChar, categoryId)
+      .input("categoryId", sql.Int, categoryId)
       .input("description", sql.NVarChar, description)
       .input("price", sql.NVarChar, price)
       .input("status", sql.NVarChar, status)
       .query(
-        "insert into Product values(@name,@categoryId,@description,@price,@status)"
+        `insert into [dbo].[Product]
+           (
+           [name]
+           ,[categoryId]
+           ,[description]
+           ,[price]
+           ,[status]) 
+        values(@name,@categoryId,@description,@price,@status)`
       );
   } catch (err) {
     throw err;
