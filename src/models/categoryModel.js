@@ -50,3 +50,23 @@ export const updateCategoryModel = async (id, name) => {
     throw err.message;
   }
 };
+
+export const deleteAllCategoryModel = async () => {
+  try {
+    const request = new sql.Request();
+    await request.query("truncate table [Category]");
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const deleteCategoryModel = async () => {
+  try {
+    const request = new sql.Request();
+    await request.query("truncate table [Category]");
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

@@ -2,6 +2,7 @@ import {
   insertCategory,
   getAllCategory,
   updateCategoryModel,
+  deleteAllCategoryModel,
 } from "../models/categoryModel.js";
 
 export const addCategory = async (req, res) => {
@@ -46,5 +47,15 @@ export const updateCategory = async (req, res) => {
       message: "Error in updating category",
       error: err || err.message,
     });
+  }
+};
+
+export const deleteAllCategory = async (req, res) => {
+  try {
+    await deleteAllCategoryModel();
+    res.status(200).json({ message: "All categories deleted Successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(401).json({ error: "Error while deleting all category" });
   }
 };

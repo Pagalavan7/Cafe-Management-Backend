@@ -7,11 +7,11 @@ import {
 } from "../services/authService.js";
 
 export const signUp = async (req, res) => {
-  const { name, contactNumber, email, password, status, role } = req.body;
+  const { name, phone, email, password, status, role } = req.body;
   try {
     const token = await registerUser(
       name,
-      contactNumber,
+      phone,
       email,
       password,
       status,
@@ -30,7 +30,7 @@ export const login = async (req, res) => {
     const token = await loginUser(email, password);
     res.status(200).json({ message: "Login successful", token: token });
   } catch (err) {
-    res.status(400).send({ message: "Can't login user!", error: err.message });
+    res.status(401).send({ message: "Can't login user!", error: err.message });
   }
 };
 
@@ -54,7 +54,7 @@ export const resetPassword = async (req, res) => {
     res.status(200).json({ message: "Password reset successful" });
   } catch (err) {
     res
-      .status(400)
+      .status(401)
       .json({ message: "Failed to reset password", error: err.message });
   }
 };

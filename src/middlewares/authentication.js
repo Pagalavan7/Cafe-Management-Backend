@@ -13,10 +13,10 @@ export const authenticateToken = (req, res, next) => {
       next();
     } else {
       res
-        .status(401)
+        .status(400)
         .json({ message: "Authorization header missing or malformed" });
     }
   } catch (err) {
-    res.status(500).json({ message: "Invalid Token", error: err });
+    res.status(401).json({ message: "Invalid Token", error: err });
   }
 };
