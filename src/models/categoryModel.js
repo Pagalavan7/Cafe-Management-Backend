@@ -61,12 +61,17 @@ export const deleteAllCategoryModel = async () => {
   }
 };
 
-export const deleteCategoryModel = async () => {
+export const deleteCategoryModel = async (id) => {
   try {
     const request = new sql.Request();
-    await request.query("truncate table [Category]");
+    const result = await request
+      .input("id", sql.Int, id)
+      .query("delete from [Category] where categoryid = @id");
+    if (result.rowsAffected[0] < 1) {
+      throw new Error("Id not found! Can't delete category");
+    }
   } catch (err) {
     console.log(err);
-    throw err;
+    throw err || err.message;
   }
 };
