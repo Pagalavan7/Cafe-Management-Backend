@@ -1,4 +1,6 @@
 import sql from "mssql";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export const emailExists = async (email) => {
   const request = new sql.Request();
@@ -18,24 +20,18 @@ export const insertUser = async (
   role
 ) => {
   try {
-    const request = new sql.Request();
-    await request
-      .input("name", sql.VarChar, name)
-      .input("contactNumber", sql.VarChar, contactNumber)
-      .input("email", sql.VarChar, email)
-      .input("password", sql.VarChar, password)
-      .input("status", sql.VarChar, status)
-      .input("role", sql.VarChar, role)
-      .query(
-        `insert into  [dbo].[User]
-           ([name]
-           ,[phone]
-           ,[email]
-           ,[password]
-           ,[status]
-           ,[role])
-        values(@name,@contactNumber,@email,@password,@status,@role)`
-      );
+    console.log("coming inside insert user model..");
+    const createdUser = await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        isAdmin: role,
+        isActive: status,
+        phoneNumber: contactNumber,
+      },
+    });
+    return createdUser;
   } catch (err) {
     throw err;
   }

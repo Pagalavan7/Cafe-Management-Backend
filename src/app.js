@@ -6,11 +6,12 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import { authenticateToken } from "./middlewares/authentication.js";
 import { authorizeAdmin } from "./middlewares/authorization.js";
+import { PrismaClient } from "@prisma/client";
 
 import cors from "cors";
 
 const app = express();
-
+const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
